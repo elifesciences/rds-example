@@ -1,0 +1,23 @@
+.site-header {
+  max-width: 1114px;
+  margin: 0 auto;
+}
+
+.info-bar {
+  background-color: #e65100;
+}
+
+.info-bar a {
+  text-decoration: underline;
+}
+
+.nav-primary__item--first {
+  width: 42px;
+}
+
+@media only all and (max-width: 21.25rem) {
+  .nav-primary__item--first {
+    width: 38px;
+  }
+}
+
