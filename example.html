@@ -32,22 +32,11 @@
         margin: 0 auto;
       }
 
-      .site-header {
-        max-width: 1114px;
-        margin: 0 auto;
-      }
-
-      .info-bar {
-        background-color: #e65100;
-      }
-
-      .info-bar a {
-        text-decoration: underline;
-      }
-
     </style>
+
+    <link rel="stylesheet" href="./elife-assets/overrides.css">
     <script>
-      window.STENCILA_HOSTS="https://hub.stenci.la/projects/3ea93204bf5957e7489c0720536fcf4adcfb72a33c6cc391d05ba14467fca3e7/host/v0"
+      window.STENCILA_HOSTS="https://hub.stenci.la/projects/3ea93204bf5957e7489c0720536fcf4adcfb72a33c6cc391d05ba14467fca3e7/host/v0";
       window.addEventListener('load', () => {
         TextureReader.mount({
           archiveId: 'rds-user-testing',
@@ -131,7 +120,9 @@
 
           <nav class="nav-primary">
             <ul class="nav-primary__list clearfix">
-              <li class="nav-primary__item nav-primary__item--first">
+
+              <li class="nav-primary__item nav-primary__item--first" aria-hidden="true"></li>
+              <li class="nav-primary__item nav-primary__item">
 
 
 
