@@ -2963,7 +2963,7 @@
         this.autorun = data.autorun;
       } else {
         // TODO: using manual execution as a default for now
-        this.autorun = true;
+        this.autorun = false;
       }
       this.cells = data.cells.map(cellData => this._createCell(cellData));
       // registration hook used for propagating initial cell state to the application
@@ -11007,17 +11007,25 @@
 
     _renderStatusDescription($$) {
       const cellState = getCellState(this.props.node);
+      // console.log('cellstate', cellState.status)
       let statusName = cellState ? toString(cellState.status) : 'unknown';
       let statusDescr = statusName;
-      if (statusName === 'ok') {
-        statusDescr = 'ready';
-      }
+      // if (statusName === 'ok') {
+      //   statusDescr = 'ready'
+      // }
+      // if (statusName === 'ready') {
+      //   statusDescr = 'pending'
+      // }
+
       let el = $$('div').addClass(`se-status-description sm-${statusName}`).append(
         'status: ',
         $$('span').addClass('se-status-name').append(
           statusDescr
         )
       );
+      if (statusDescr === 'ready') {
+        el.append(' (run code with ⇧⏎)');
+      }
       return el
     }
 
@@ -11287,7 +11295,9 @@
         // to have a less jumpy experience, we show the last valid value grey'd out
         else if (this._cachedValue) {
           el.append(
-            $$(ValueComponent, this._cachedValue).ref('value').addClass('sm-pending')
+            $$(ValueComponent, this._cachedValue).ref('value')
+            // HACK: Disable pending computation ...
+            // .addClass('sm-pending')
           );
         }
       }
@@ -17250,7 +17260,7 @@
       this.model = model;
 
       // TODO: do this somewhere else
-      doc.autorun = true;
+      doc.autorun = false;
 
       this.editorSession.on('update', this._onDocumentChange, this, { resource: 'document' });
       this.engine.on('update', this._onEngineUpdate, this);
@@ -17797,9 +17807,38 @@
           error.message
         );
       }
+    } else {
+      // LOADING...
+      el.append(
+        $$(Loading, {
+          message: 'Providing runtime environment. This may take up to a few minutes.'
+        })
+      );
     }
     return el
   }
+
+  class Loading extends substance.Component {
+    render($$) {
+      let el = $$('div').addClass('sc-loading');
+      el.append(
+        $$('div').addClass('se-spinner').append(
+          $$('div'),
+          $$('div'),
+          $$('div'),
+          $$('div'),
+          $$('div'),
+          $$('div')
+        ),
+        $$('div').addClass('se-message').append(
+          this.props.message
+        )
+      );
+      return el
+    }
+  }
+
+
 
   function _setupStencilaChildContext (originalContext) {
     const context = setupStencilaContext();
