@@ -1,0 +1,13 @@
+elifePipeline {
+    def commit
+
+    stage 'Checkout', {
+        checkout scm
+        commit = elifeGitRevision()
+    }
+
+    stage 'Deploy to prod', {
+        elifeGitMoveToBranch commit, 'master'
+        sh "aws s3 sync --exclude='.git/*' ./ s3://prod-elife-reproducible-document-stack/ --delete"
+    }
+}
