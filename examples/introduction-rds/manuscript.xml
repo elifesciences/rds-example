@@ -144,7 +144,7 @@ plot.lot1 <- ggplot(lot1sum, aes(x=Time, y=lot1sum$value, fill=Time)) +
         legend.position = "none",
         axis.line.x = element_line())
 
-########## Generates bar plot for lot 1 ##########
+########## Generates bar plot for lot 2 ##########
 ##################################################
 
 plot.lot2 <- ggplot(lot2sum, aes(x=Time, y=lot2sum$value, fill=Time)) +
